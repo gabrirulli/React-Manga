@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { DrawerNavigator } from 'react-navigation';
 import Home from './components/home';
+import NavigatorStack from './components/navigator_stack';
 import MangaList from './components/manga_list';
 
 const SideNavigator = DrawerNavigator({
@@ -16,22 +17,23 @@ const SideNavigator = DrawerNavigator({
     screen: Home
   },
   MangaList: {
-    screen: MangaList
+    screen: NavigatorStack
   },
 });
 
 const styles = {
   container: {
-    marginTop: 10
+    backgroundColor: '#EBEBEB'
   },
 };
 
 export default class App extends Component {
   render() {
     return (
-      <SideNavigator ref={nav => { this.navigator = nav; }} />
+      <SideNavigator ref={nav => { this.navigator = nav; }} style={styles.container} />
     );
   }
 }
+
 
 AppRegistry.registerComponent('ReactManga', () => App);

@@ -16,19 +16,9 @@ export default class MangaList extends Component {
     };
   }
 
-  static navigationOptions = {
-    drawerLabel: 'Lista manga',
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-        style={[styles.icon, {tintColor: tintColor}]}
-      />
-    ),
-  };
-
   renderManga() {
     return this.state.mangaList.map(manga =>
-      <MangaDetail key={manga.a} manga={manga} />
+      <MangaDetail key={manga.a} manga={manga} navigation={this.props.navigation} />
     );
   }
 
@@ -47,7 +37,6 @@ export default class MangaList extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({ mangaList: responseJson.manga });
-        console.log(this.state.mangaList);
         // this.state.mangaList.map((manga) =>
         //   console.log(manga.im)
         // );
@@ -60,10 +49,7 @@ export default class MangaList extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 25
-  },
-  icon: {
-    width: 24,
-    height: 24,
+    marginTop: 25,
+    backgroundColor: '#fff'
   }
 });
