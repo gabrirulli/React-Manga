@@ -5,8 +5,11 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 
-import Button from '../shared/button';
+import Info from './info';
+import Chapters from './chapters';
+
 export default class MangaShow extends Component {
   constructor(props) {
     super(props);
@@ -18,34 +21,22 @@ export default class MangaShow extends Component {
       chapters: []
     };
   }
-  
-  render() {
-    if (this.state.image == null) {
-      image = <Image
-                style={styles.imageStyle}
-                source={require('../../img/no-image-available.jpg')}
-              />
-    } else {
-      image = <Image
-                style={styles.imageStyle}
-                source={{ uri: 'https://cdn.mangaeden.com/mangasimg/' + this.state.image }}
-              />
-    }
 
+  render() {
+    const mangaId = this.props.navigation.state.params.id
+    const title = this.props.navigation.state.params.title
     return (
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          {image}
-          <Text style={{fontWeight: 'bold'}}> Autore </Text>
-          <Text> {this.state.author} </Text>
-          <Button
-            onPress={() => this.props.navigation.navigate('Chapters', {chapters: this.state.chapters})}
-          />
-        </View>
-        <View>
-          <Text> {this.state.description} </Text>
-        </View>
-      </View>
+      <ScrollableTabView>
+        <Info tabLabel="Info"
+          mangaId={mangaId}
+          title={title}
+          author={this.state.author}
+          description={this.state.description}
+          categories={this.state.categories}
+          image={this.state.image}
+        />
+        <Chapters tabLabel="Capitoli" chapters={this.state.chapters} navigation={this.props.navigation} />
+      </ScrollableTabView>
     );
   }
 
@@ -53,7 +44,6 @@ export default class MangaShow extends Component {
     return fetch('http://www.mangaeden.com/api/manga/' + this.props.navigation.state.params.id)
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
         this.setState({
           description: responseJson.description,
           author: responseJson.author,
@@ -61,28 +51,10 @@ export default class MangaShow extends Component {
           image: responseJson.image,
           chapters: responseJson.chapters
         });
-        console.log(this.state);
+        // console.log(this.state);
       })
       .catch((error) => {
         console.error(error);
       });
   }
 }
-
-const styles = {
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 20
-  },
-  imageContainer: {
-    flexDirection: 'row',
-    marginBottom: 20
-  },
-  imageStyle: {
-    width: 150,
-    height: 250
-  }
-};

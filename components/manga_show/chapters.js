@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import {
-  View,
+  ScrollView,
   Text,
-  Image,
-  StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 import ImageViewer from 'ImageViewer';
 
@@ -12,25 +11,34 @@ export default class Chapters extends Component {
     super(props);
   }
 
-  render () {
-    console.log(this.props);
-    return(
-      <Text> CHAPTERS </Text>
+  renderChapters() {
+    return this.props.chapters.map(chapter =>
+      <TouchableOpacity key={chapter[3]} style={styles.buttonStyle} onPress={() => this.props.navigation.navigate('Chapter', {id: chapter[3]})}>
+        <Text style={styles.textStyle}> {chapter[2]} </Text>
+      </TouchableOpacity>
     );
   }
 
-  // componentDidMount() {
-  //   return fetch('http://www.mangaeden.com/api/chapter/4e711cb0c09225616d037cc2/')
-  //     .then((response) => response.json())
-  //     .then((responseJson) => {
-  //       this.setState({ mangaList: responseJson.manga });
-  //       console.log(this.state.mangaList);
-  //       // this.state.mangaList.map((manga) =>
-  //       //   console.log(manga.im)
-  //       // );
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }
+  render () {
+    // console.log(this.props);
+    return(
+      <ScrollView>
+        {this.renderChapters()}
+      </ScrollView>
+    );
+  }
 }
+
+const styles = {
+  textStyle: {
+    color: '#000',
+    fontSize: 16,
+    fontWeight: '600',
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  buttonStyle: {
+    borderTopWidth: 1,
+    borderColor: '#000',
+  }
+};

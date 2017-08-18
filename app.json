@@ -1,5 +1,10 @@
 {
   "expo": {
+    "name": "React Manga",
+    "slug": "react-manga",
     "sdkVersion": "19.0.0"
+  },
+  "android": {
+    "package": "com.yourcompany.yourappname"
   }
 }

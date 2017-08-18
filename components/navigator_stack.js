@@ -5,6 +5,7 @@ import { StackNavigator } from 'react-navigation';
 import MangaList from './manga_list';
 import MangaShow from './manga_show/manga_show';
 import Chapters from './manga_show/chapters';
+import Chapter from './manga_show/chapter';
 
 const Navigator = StackNavigator({
   Home: {
@@ -19,8 +20,8 @@ const Navigator = StackNavigator({
       title: `${navigation.state.params.title}`
     })
   },
-  Chapters: {
-    screen: Chapters
+  Chapter: {
+    screen: Chapter
   }
 });
 
