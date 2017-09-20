@@ -1,10 +1,12 @@
 {
   "expo": {
     "name": "React Manga",
+    "icon": "http://www.mangauk.com/wp-content/uploads/2016/11/Manga-Logo-FINAL-Recovered-4.png",
     "slug": "react-manga",
-    "sdkVersion": "19.0.0"
-  },
-  "android": {
-    "package": "com.yourcompany.yourappname"
+    "version": "1.0.0",
+    "sdkVersion": "19.0.0",
+    "android": {
+      "package": "it.gabrirulli.reactmanga"
+    }
   }
 }

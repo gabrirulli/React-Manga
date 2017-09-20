@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
-import {
-  Text
-} from 'react-native';
-import ImageViewer from 'ImageViewer';
+import Gallery from 'react-native-image-gallery';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 export default class Chapter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: ['https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy-facebook_s.jpg'],
-      shown: true,
-      curIndex: 0
+      images: []
     };
   }
 
-  closeViewer() {
-    this.setState({
-        shown:false,
-        curIndex:0
-    })
+  onSwipeRight() {
+    alert("mannaggia");
   }
 
   render () {
+    //const config = {
+    //  velocityThreshold: 0.3,
+    //  directionalOffsetThreshold: 80
+    //};
+
     return(
-      <ImageViewer shown={this.state.shown}
-                   imageUrls={this.state.images}
-                   onClose={this.closeViewer.bind(this)}
-                   index={this.state.curIndex}>
-      </ImageViewer>
+      <Gallery
+        style={{flex: 1, backgroundColor: 'black'}}
+        images={this.state.images}
+        pageMargin={20}
+        onPageScroll={ (event) => {console.log(event.offset)} }
+        onPageScrollStateChanged={ (state) => {console.log(state)} }
+      />
     );
   }
 
@@ -37,12 +37,12 @@ export default class Chapter extends Component {
       .then((responseJson) => {
         var imgArr = [];
         responseJson.images.map(image =>
-          imgArr.unshift('http://cdn.mangaeden.com/mangasimg/' + image[1])
+          imgArr.unshift({source: {uri: 'http://cdn.mangaeden.com/mangasimg/' + image[1]}})
         );
         this.setState({
           images: imgArr
         });
-        console.log(this.state);
+        console.log(this.state.images.slice(-1)[0]);
       })
       .catch((error) => {
         console.error(error);
@@ -50,4 +50,12 @@ export default class Chapter extends Component {
   }
 }
 
-{/*<Text> CIAO </Text>*/}
+//<GestureRecognizer
+//  onSwipeRight={(state) => this.onSwipeRight(state)}
+//  config={config}
+//  style={{
+//    flex: 1,
+//    backgroundColor: "#fff"
+//  }}
+//  >
+//</GestureRecognizer>

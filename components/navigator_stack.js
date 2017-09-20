@@ -21,10 +21,13 @@ const Navigator = StackNavigator({
     })
   },
   Chapter: {
-    screen: Chapter
+    screen: Chapter,
+    navigationOptions: ({navigation}) => ({
+      headerStyle: {backgroundColor: '#000'},
+      headerTintColor: 'white'
+    })
   }
 });
-
 
 export default class NavigatorStack extends Component {
   static navigationOptions = {

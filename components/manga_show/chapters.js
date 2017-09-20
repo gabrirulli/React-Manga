@@ -20,7 +20,6 @@ export default class Chapters extends Component {
   }
 
   render () {
-    // console.log(this.props);
     return(
       <ScrollView>
         {this.renderChapters()}
@@ -39,6 +38,6 @@ const styles = {
   },
   buttonStyle: {
     borderTopWidth: 1,
-    borderColor: '#000',
+    borderColor: '#000'
   }
 };
